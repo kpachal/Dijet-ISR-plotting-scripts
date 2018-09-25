@@ -329,7 +329,7 @@ if __name__ == "__main__":
 
   makeCombinedPlots = False
 
-  dest = "./plots/compare_systs/"
+  dest = "./compare_systs/"
 
   indir = "/cluster/warehouse/kpachal/DijetISR/Resolved2017/LimitSetting/BayesianFramework/results/gaussian_limits/"
   compareForms = [
