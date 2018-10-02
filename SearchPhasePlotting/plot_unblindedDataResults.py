@@ -20,7 +20,11 @@ myPainter.cutstring="|y*| < 0.75"
 # Somewhere to put the plots
 outDir = "plots_unblindedData/"
 # Where are all the files I need to look at?
-filesToPlot = "/cluster/warehouse/kpachal/DijetISR/Resolved2017/LimitSetting/inputs/data_outputs/SearchPhase_dijetgamma_*.root".format(tag)
+# In the below are the files that were originally used for INT plots after unblinding
+#filesToPlot = "/cluster/warehouse/kpachal/DijetISR/Resolved2017/LimitSetting/inputs/data_outputs/SearchPhase_dijetgamma_*.root".format(tag)
+# Re-calculated with new definition of function choice uncertainty
+filesToPlot = "/cluster/warehouse/kpachal/DijetISR/Resolved2017/LimitSetting/BayesianFramework/results/search_official_results/SearchPhase_dijetgamma_*.root".format(tag)
+
 # Luminosities in ipb
 lumiDict = {"dijetgamma_single_trigger" : 79826,
             "dijetgamma_compound_trigger" : 76595,

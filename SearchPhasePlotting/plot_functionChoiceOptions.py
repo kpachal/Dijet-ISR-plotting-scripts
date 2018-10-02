@@ -88,7 +88,7 @@ for spectrum in spectra :
   errors_changeWHW = [dataDict["changeWHW"].asymmFitUncertainty,dataDict["changeWHW"].asymmFitUncertainty]
 
   data = dataDict["standard"].basicData
-  fit = dataDict["standard"].basicBkgFrom4ParamFit
+  fit = dataDict["standard"].basicBkgFromFit
   firstBin = data.FindBin(dataDict["standard"].fitLow)-1
   lastBin = data.FindBin(dataDict["standard"].fitHigh)
 
@@ -154,8 +154,8 @@ for spectrum in spectra :
       ratio_worstFunc_newDir.SetBinContent(bin,(dataDict["worstFunc"].asymmFitUncertainty_averageDir.GetBinContent(bin)-fit.GetBinContent(bin))/fit.GetBinContent(bin))
       ratio_changeWHW_newDir.SetBinContent(bin,(dataDict["changeWHW"].asymmFitUncertainty_averageDir.GetBinContent(bin)-fit.GetBinContent(bin))/fit.GetBinContent(bin))
       
-      ratio_statistical_plus1.SetBinContent(bin,dataDict["statistical"].basicBkgFrom4ParamFit.GetBinError(bin)/fit.GetBinContent(bin))
-      ratio_statistical_minus1.SetBinContent(bin,-1.0*dataDict["statistical"].basicBkgFrom4ParamFit.GetBinError(bin)/fit.GetBinContent(bin))
+      ratio_statistical_plus1.SetBinContent(bin,dataDict["statistical"].basicBkgFromFit.GetBinError(bin)/fit.GetBinContent(bin))
+      ratio_statistical_minus1.SetBinContent(bin,-1.0*dataDict["statistical"].basicBkgFromFit.GetBinError(bin)/fit.GetBinContent(bin))
       stat_plus1.SetBinContent(bin,1.0/math.sqrt(fit.GetBinContent(bin)))
       stat_minus1.SetBinContent(bin,-1.0/math.sqrt(fit.GetBinContent(bin)))
 
@@ -171,8 +171,6 @@ for spectrum in spectra :
   ratio_worstFunc.Write("ratio_worstfunc")
   ratio_changeWHW.Write("ratio_changeWHW")
   outfile.Close()
-
-#  myPainter.drawDataWithFitAsHistogramAndResidual(data, fit, luminosity, 13, "m_{jj} [GeV]","Events",["Data","Fit","Nominal func. choice","Worst acceptable","Smaller SWIFT WHW"],"{0}/compareFitFuncUncertainties_{1}".format(outDir,spectrum),drawError = True,errors = [errors_standard, errors_worstFunc,errors_changeWHW], residualList = [ratio_standard,ratio_worstFunc,ratio_changeWHW], binlow = firstBin, binhigh = lastBin+2, doLogY = True, doLogX = True,drawAsSmoothCurve = True, doRectangular = False,doLegTopRight = False)
   
   myPainter.drawManyOverlaidHistograms([ratio_standard,ratio_worstFunc,ratio_changeWHW], ["Nominal func. choice","Worst acceptable","Smaller SWIFT WHW"], "m_{jj} [GeV]", "Events", "{0}/compareRatios_{1}".format(outDir,spectrum),firstBin,lastBin,-1.0*yrange,yrange,extraLegendLines = [],doLogX=False,doLogY=False,doErrors=False,doRectangular=False,doLegend=True,doLegendLow=True,doLegendLocation="Left",doLegendOutsidePlot=False,doATLASLabel="Low",pairNeighbouringLines=False,dotLines = [False,False,False],addHorizontalLines=[])
 
@@ -180,7 +178,7 @@ for spectrum in spectra :
 
   myPainter.drawManyOverlaidHistograms([ratio_standard,ratio_worstFunc,ratio_changeWHW,[ratio_statistical_plus1,ratio_statistical_minus1]], ["Nominal func. choice","Worst acceptable","Smaller SWIFT WHW", "Fit uncertainty"], "m_{jj} [GeV]", "Events", "{0}/compareRatios_withFitUnc_{1}".format(outDir,spectrum),firstBin,lastBin,-1.0*yrange_withStat,yrange_withStat,extraLegendLines = [],doLogX=False,doLogY=False,doErrors=False,doRectangular=False,doLegend=True,doLegendLow=True,doLegendLocation="Left",doLegendOutsidePlot=False,doATLASLabel="Low",pairNeighbouringLines=False,dotLines = [False,False,False,True],addHorizontalLines=[])
   
-#  myPainter.drawManyOverlaidHistograms([ratio_standard_newDir,ratio_worstFunc_newDir,ratio_changeWHW_newDir,[ratio_statistical_plus1,ratio_statistical_minus1]], ["Nominal func. choice","Worst acceptable","Smaller SWIFT WHW", "Fit uncertainty"], "m_{jj} [GeV]", "Events", "{0}/compareRatios_averageDirection_withFitUnc_{1}".format(outDir,spectrum),firstBin,lastBin,-1.0*yrange_withStat,yrange_withStat,extraLegendLines = [],doLogX=False,doLogY=False,doErrors=False,doRectangular=False,doLegend=True,doLegendLow=True,doLegendLocation="Left",doLegendOutsidePlot=False,doATLASLabel="Low",pairNeighbouringLines=False,dotLines = [False,False,False,True],addHorizontalLines=[])
+  myPainter.drawManyOverlaidHistograms([ratio_standard_newDir,ratio_worstFunc_newDir,ratio_changeWHW_newDir,[ratio_statistical_plus1,ratio_statistical_minus1]], ["Nominal func. choice","Worst acceptable","Smaller SWIFT WHW", "Fit uncertainty"], "m_{jj} [GeV]", "Events", "{0}/compareRatios_averageDirection_withFitUnc_{1}".format(outDir,spectrum),firstBin,lastBin,-1.0*yrange_withStat,yrange_withStat,extraLegendLines = [],doLogX=False,doLogY=False,doErrors=False,doRectangular=False,doLegend=True,doLegendLow=True,doLegendLocation="Left",doLegendOutsidePlot=False,doATLASLabel="Low",pairNeighbouringLines=False,dotLines = [False,False,False,True],addHorizontalLines=[])
   
   print "done"
 
