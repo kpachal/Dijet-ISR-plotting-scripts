@@ -55,7 +55,7 @@ class multiPlotter :
         self.data2.bumpLowEdge, self.data2.bumpHighEdge, extraLegendLines=extraLines, \
         pval = self.data1.bumpHunterPVal, chi2pval = self.data1.chi2PVal,\
         pval2 = self.data2.bumpHunterPVal, chi2pval2 = self.data2.chi2PVal, doRectangular=False,
-        dataPointsOption=dataPointsOption,fancinessOption=fancinessOption)
+        dataPointsOption=dataPointsOption,fancinessOption=fancinessOption,extraSpace=("tag" in channelLabel))
 
 # Pass lumi in pb
 def ProcessSignalFile(sigfile,lumi,scale,binLow,binHigh,compare_data) :
