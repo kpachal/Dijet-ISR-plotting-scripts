@@ -36,8 +36,8 @@ rangeDict = {
 }
 
 labelDict = {
-"single_trigger" : ["Single photon trigger,", "inclusive selection"],
-"compound_trigger" : ["Single photon trigger,", "2 #it{b}-tags"],
+"single_trigger" : ["Single-photon trigger", "Inclusive selection"],
+"compound_trigger" : ["Single-photon trigger", "2 #it{b}-tags"],
 }
 
 # Initialize painter
@@ -98,6 +98,6 @@ for channel in sigsToPlot.keys() :
     ymax = rangeDict[channel]["ymax"]
     print xmin,xmax,histList[0].FindBin(xmin),histList[0].FindBin(xmax)
 
-    myPainter.drawManyOverlaidHistograms(histList,namesList,"m_{jj} [GeV]","Events/fb",plotName,histList[0].FindBin(xmin),histList[0].FindBin(xmax),ymin,ymax,extraLegendLines=extraLegendLine,doLogX=False,doLogY=False,doErrors=False,doRectangular=False,doLegend=True,doLegendLow=False,doLegendLocation="Right",doLegendOutsidePlot=False,doATLASLabel="Left")
+    myPainter.drawManyOverlaidHistograms(histList,namesList,"m_{jj} [GeV]","Events/fb",plotName,histList[0].FindBin(xmin),histList[0].FindBin(xmax),ymin,ymax,extraLegendLines=extraLegendLine,doLogX=False,doLogY=False,doErrors=False,doRectangular=False,doLegend=True,doLegendLow=False,doLegendLocation="Right",doLegendOutsidePlot=False,doATLASLabel="Left",doCME=13)
 
-    myPainter.drawManyOverlaidHistograms(histList,namesList,"m_{jj} [GeV]","Events/fb",plotName+"_logx",histList[0].FindBin(xmin),histList[0].FindBin(xmax),ymin,ymax,extraLegendLines=extraLegendLine,doLogX=False,doLogY=True,doErrors=False,doRectangular=False,doLegend=True,doLegendLow=False,doLegendLocation="Right",doLegendOutsidePlot=False,doATLASLabel="Low")
+    myPainter.drawManyOverlaidHistograms(histList,namesList,"m_{jj} [GeV]","Events/fb",plotName+"_logx",histList[0].FindBin(xmin),histList[0].FindBin(xmax),ymin,ymax,extraLegendLines=extraLegendLine,doLogX=False,doLogY=True,doErrors=False,doRectangular=False,doLegend=True,doLegendLow=False,doLegendLocation="Right",doLegendOutsidePlot=False,doATLASLabel="Low",doCME=13)

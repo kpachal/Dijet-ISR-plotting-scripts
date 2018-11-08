@@ -38,12 +38,12 @@ class multiPlotter :
       extraLines = [channelLabel]
     
     if includeTriggers :
-      datastring1 = "single #gamma"
+      datastring1 = "single-photon"
       datastring2 = "combined"
     else :
       datastring1 = ""
       datastring2 = ""
-    
+
     # Fancy figure 1 (two spectra)
     myPainter.drawDataAndFitsOverSignificanceHists_TwoSpectra(\
         self.data1.basicData, self.data1.basicBkgFromFit,self.data1.residualHist,\
@@ -148,7 +148,6 @@ for channel in ["inclusive","nbtag2"] :
     sig_binLow = sig_data["binLow"]
     sig_binHigh = sig_data["binHigh"]
     data.sigScale = scale
-    print "For channel",channel,"and trigger",trigger,"using scale",scale
     
     # Process signal file and append its info
     signalFile = signalFileTemplate.format(trigger,channel,sig_data["mass"],"1")
