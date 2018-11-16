@@ -19,7 +19,7 @@ myPainter.cutstring="|y*| < 0.75"
 outDir = "plots_compareFuncChoiceUncertainties/"
 
 # Where are all the files I need to look at?
-filesToPlot = "/cluster/warehouse/kpachal/DijetISR/Resolved2017/LimitSetting/BayesianFramework/results/search_compareUncertainties/SearchPhase_dijetgamma_{0}_{1}.root"
+filesToPlot = "/home/kpachal/project/kpachal/Datasets_DijetISR/search_compare_uncertainties/SearchPhase_dijetgamma_{0}_{1}.root"
 
 spectra = [
            "compound_trigger_inclusive",

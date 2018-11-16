@@ -6,9 +6,6 @@ from art.morisot import Morisot
 from analysisScripts.searchphase import searchFileData
 import analysisScripts.generalfunctions
 
-# Tag: if you only want to make things matching a pattern
-tag = ""
-
 # Make a painter
 # Initialize painter
 myPainter = Morisot()
@@ -17,12 +14,10 @@ myPainter.setLabelType(2)
 myPainter.setEPS(True)
 
 # Somewhere to put the plots
-outDir = "plots_unblindedData/"
+outDir = "plots_0p3tests/"
 # Where are all the files I need to look at?
-# In the below are the files that were originally used for INT plots after unblinding
-#filesToPlot = "/cluster/warehouse/kpachal/DijetISR/Resolved2017/LimitSetting/inputs/data_outputs/SearchPhase_dijetgamma_*.root".format(tag)
-# Re-calculated with new definition of function choice uncertainty
-filesToPlot = "/home/kpachal/project/kpachal/Datasets_DijetISR/search_official_results/SearchPhase_dijetgamma_*.root".format(tag)
+dirsToPlot = []
+filesToPlot = "/home/kpachal/project/kpachal/Datasets_DijetISR/{0}/SearchPhase_dijetgamma_*.root"
 
 # Luminosities in ipb
 lumiDict = {"dijetgamma_single_trigger" : 79826,
