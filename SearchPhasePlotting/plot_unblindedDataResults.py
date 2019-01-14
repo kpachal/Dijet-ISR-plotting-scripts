@@ -36,9 +36,9 @@ minXDict = {"dijetgamma_single_trigger" : 169,
 maxXForFit = 1200
 
 channelLabels = {
-"dijetgamma_single_trigger_inclusive" : "#splitline{Single photon trigger,}{flavour inclusive}",
-"dijetgamma_single_trigger_nbtag2" : "#splitline{Single photon trigger,}{2 b-tags}",
-"dijetgamma_compound_trigger_inclusive" : "#splitline{Combined trigger,}{flavour inclusive}",
+"dijetgamma_single_trigger_inclusive" : "#splitline{Single-photon trigger}{Flavour inclusive}",
+"dijetgamma_single_trigger_nbtag2" : "#splitline{Single-photon trigger}{2 b-tags}",
+"dijetgamma_compound_trigger_inclusive" : "#splitline{Combined trigger}{Flavour inclusive}",
 "dijetgamma_compound_trigger_nbtag2" : "#splitline{Combined trigger}{2 b-tags}"
 }
 

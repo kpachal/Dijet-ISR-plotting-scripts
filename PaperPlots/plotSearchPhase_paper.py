@@ -28,7 +28,7 @@ class multiPlotter :
     self.data1 = lower_mass_data
     self.data2 = higher_mass_data
 
-  def makeDoubleSearchPhasePlot(self,low1,low2,high,folder,ext,channelLabel="",dataPointsOption=0,fancinessOption=0,includeTriggers = False) :
+  def makeDoubleSearchPhasePlot(self,low1,low2,high,folder,ext,channelLabel="",dataPointsOption=0,fancinessOption=0,includeTriggers = False,includeBumpLimits = True,extraSpace=0,nLabelsX=7) :
 
     firstBin = self.data1.basicData.FindBin(low1)
     lastBin = self.data1.basicData.FindBin(high)
@@ -38,8 +38,8 @@ class multiPlotter :
       extraLines = [channelLabel]
     
     if includeTriggers :
-      datastring1 = "single-photon"
-      datastring2 = "combined"
+      datastring1 = "single-photon trigger"
+      datastring2 = "combined trigger"
     else :
       datastring1 = ""
       datastring2 = ""
@@ -51,11 +51,11 @@ class multiPlotter :
         self.data1.sigHist, self.data2.sigHist, self.data1.sigScale, self.data2.sigScale,\
          'm_{jj} [GeV]','Events','Significance','{0}/figure1'.format(folder)+ext,\
         self.data1.luminosity, self.data2.luminosity, datastring1, datastring2, 13, low1, high,\
-        firstBin, lastBin, True, self.data1.bumpLowEdge, self.data1.bumpHighEdge,\
+        firstBin, lastBin, includeBumpLimits, self.data1.bumpLowEdge, self.data1.bumpHighEdge,\
         self.data2.bumpLowEdge, self.data2.bumpHighEdge, extraLegendLines=extraLines, \
         pval = self.data1.bumpHunterPVal, chi2pval = self.data1.chi2PVal,\
         pval2 = self.data2.bumpHunterPVal, chi2pval2 = self.data2.chi2PVal, doRectangular=False,
-        dataPointsOption=dataPointsOption,fancinessOption=fancinessOption,extraSpace=("tag" in channelLabel))
+        dataPointsOption=dataPointsOption,fancinessOption=fancinessOption,extraSpace=(1 if "tag" in channelLabel else extraSpace),nLabelsX=nLabelsX)
 
 # Pass lumi in pb
 def ProcessSignalFile(sigfile,lumi,scale,binLow,binHigh,compare_data) :
@@ -125,6 +125,8 @@ low1 = 169
 low2 = 335
 high = 1200
 
+high_extended = 2114.0
+
 for channel in ["inclusive","nbtag2"] :
 
   channel_data = {}
@@ -182,15 +184,34 @@ for channel in ["inclusive","nbtag2"] :
   extension_variations = extension+"_withTrigLabels_fancinessOption2"
   paperPlotter.makeDoubleSearchPhasePlot(low1,low2,high,folder,extension_variations, label, dataPointsOption=2, fancinessOption=2,includeTriggers = True)
 
-  # Including trigger names and y* cuts
-  extension_variations = extension+"_withTrigLabelsAndYstar"
+  # Including trigger names and not including bump limits
+  extension_variations = extension+"_withTrigLabels_noBumpLimits"
   paperPlotter = multiPlotter(channel_data["single_trigger"],channel_data["compound_trigger"],True)
-  paperPlotter.makeDoubleSearchPhasePlot(low1,low2,high,folder,extension_variations, label+", |y*| < 0.75", dataPointsOption=2,includeTriggers = True)
+  paperPlotter.makeDoubleSearchPhasePlot(low1,low2,high,folder,extension_variations, label, dataPointsOption=2,includeTriggers = True, includeBumpLimits = False)
 
-  extension_variations = extension+"_withTrigLabelsAndYstar_fancinessOption1"
-  paperPlotter.makeDoubleSearchPhasePlot(low1,low2,high,folder,extension_variations, label+", |y*| < 0.75", dataPointsOption=2, fancinessOption=1,includeTriggers = True)
+  # Extra long data-only plot
+  extension_variations = extension+"_withTrigLabels_extendedDataOnly"
+  paperPlotter.makeDoubleSearchPhasePlot(low1,low2,high_extended,folder,extension_variations, label, dataPointsOption=2, fancinessOption=1,includeTriggers = True,extraSpace=1)
 
-  extension_variations = extension+"_withTrigLabelsAndYstar_fancinessOption2"
-  paperPlotter.makeDoubleSearchPhasePlot(low1,low2,high,folder,extension_variations, label+", |y*| < 0.75", dataPointsOption=2, fancinessOption=2,includeTriggers = True)
+  # Show all data points
+  lastBin = 0
+  for bin in range(channel_data["compound_trigger"].basicData.GetNbinsX()+1,0,-1) :
+    lastBin = bin
+    if channel_data["compound_trigger"].basicData.GetBinContent(bin) > 0 :
+      break
+  high_full = channel_data["compound_trigger"].basicData.GetBinLowEdge(lastBin+1)
+  extension_variations = extension+"_withTrigLabels_fullDataOnly"
+  paperPlotter.makeDoubleSearchPhasePlot(low1,low2,high_full,folder,extension_variations, label, dataPointsOption=2, fancinessOption=1,includeTriggers = True,extraSpace=(3 if "inclusive" in channel else 1),nLabelsX=6)
+
+  # Including trigger names and y* cuts
+#  extension_variations = extension+"_withTrigLabelsAndYstar"
+#  paperPlotter = multiPlotter(channel_data["single_trigger"],channel_data["compound_trigger"],True)
+#  paperPlotter.makeDoubleSearchPhasePlot(low1,low2,high,folder,extension_variations, label+", |y*| < 0.75", dataPointsOption=2,includeTriggers = True)
+
+#  extension_variations = extension+"_withTrigLabelsAndYstar_fancinessOption1"
+#  paperPlotter.makeDoubleSearchPhasePlot(low1,low2,high,folder,extension_variations, label+", |y*| < 0.75", dataPointsOption=2, fancinessOption=1,includeTriggers = True)
+
+#  extension_variations = extension+"_withTrigLabelsAndYstar_fancinessOption2"
+#  paperPlotter.makeDoubleSearchPhasePlot(low1,low2,high,folder,extension_variations, label+", |y*| < 0.75", dataPointsOption=2, fancinessOption=2,includeTriggers = True)
 
 print "Done."

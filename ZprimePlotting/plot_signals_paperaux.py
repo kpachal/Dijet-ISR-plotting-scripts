@@ -37,7 +37,7 @@ rangeDict = {
 
 labelDict = {
 "single_trigger" : ["Single-photon trigger", "Inclusive selection"],
-"compound_trigger" : ["Single-photon trigger", "2 #it{b}-tags"],
+"compound_trigger" : ["Combined trigger", "Inclusive selection"],
 }
 
 # Initialize painter
