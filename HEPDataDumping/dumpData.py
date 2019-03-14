@@ -28,7 +28,8 @@ testFile.Close()
 bins = []
 bins_combined = []
 for bin in range (1,binningHist.GetNbinsX()+1) :
-  if binningHist.GetBinLowEdge(bin) < low1 or binningHist.GetBinLowEdge(bin)+binningHist.GetBinWidth(bin) > high :
+  # ALERT: REMOVE -1 FOR ACTUAL ANALYSIS RANGE
+  if binningHist.GetBinLowEdge(bin) < low1 or binningHist.GetBinLowEdge(bin-1)+binningHist.GetBinWidth(bin-1) > high :
     continue
   print bin, "\t", binningHist.GetBinLowEdge(bin), binningHist.GetBinLowEdge(bin)+binningHist.GetBinWidth(bin)
   bins.append(bin)
